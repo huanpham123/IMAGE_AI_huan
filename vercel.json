@@ -8,7 +8,7 @@
   ],
   "functions": {
     "AI_TH.py": {
-      "maxDuration": 60 
+      "maxDuration": 60 // Đặt thời gian tối đa là 60 giây
     }
   },
   "routes": [

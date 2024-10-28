@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import requests
-import os  # Nhập thư viện os
+import os
 
 app = Flask(__name__)
 
@@ -13,16 +13,17 @@ def index():
     error_message = None  # Biến để lưu thông báo lỗi
     if request.method == "POST":
         prompt = request.form.get("prompt")
-        # Sử dụng api_url đã lấy từ biến môi trường
-
+        
         try:
-            # Thay đổi timeout về 10 giây
-            response = requests.get(f"{api_url}?prompt={prompt}", timeout=10)
+            # Giảm thời gian chờ xuống dưới 10 giây
+            response = requests.get(f"{api_url}?prompt={prompt}", timeout=5)  # Thay đổi timeout xuống 5 giây
             if response.status_code == 200:
                 data = response.json()
                 image_url = data.get("url")
             else:
                 error_message = "Không thể tạo hình ảnh, vui lòng thử lại sau."
+        except requests.Timeout:
+            error_message = "Yêu cầu đã hết thời gian chờ. Vui lòng thử lại."
         except Exception as e:
             error_message = f"Đã xảy ra lỗi: {e}"  # Lưu thông báo lỗi
     

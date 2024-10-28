@@ -6,6 +6,11 @@
       "use": "@vercel/python"
     }
   ],
+  "functions": {
+    "AI_TH.py": {
+      "maxDuration": 60 // Đặt thời gian tối đa là 60 giây
+    }
+  },
   "routes": [
     {
       "src": "/(.*)",

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            background: #2c2f3f;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        /* Nút hình tròn với hiệu ứng cầu vồng */
+        .forward-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(90deg, #b43dd8, #f9c46b, #6bf9a6, #6ec7ff, #d96bff);
+            background-size: 300%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: rainbow-btn 4s linear infinite;
+        }
+        .forward-button svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+        /* Hiệu ứng cầu vồng động */
+        @keyframes rainbow-btn {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        /* Cập nhật gradient màu cầu vồng */
+        .rainbow-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ff6ec7, #f9c46b, #6bf9a6, #6ec7ff, #d96bff);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: rainbow 4s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .input-group {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            font-size: 1em;
+            border: none;
+            outline: none;
+            color: #333;
+        }
+        button {
+            padding: 12px 20px;
+            background: #00e6e6;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 1em;
+        }
+        button:hover {
+            background: #00b3b3;
+        }
+        .image-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .image-container h3 {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #00e6e6;
+        }
+        /* Responsive - Thiết bị nhỏ hơn 600px */
+        @media (max-width: 600px) {
+            .rainbow-text {
+                font-size: 1.5em;
+            }
+            button, input[type="text"] {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+        }
+        /* Responsive - Thiết bị lớn hơn 768px */
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            .rainbow-text {
+                font-size: 2em;
+            }
+            button, input[type="text"] {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://bap-ai.vercel.app/" class="forward-button" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </a>
+        <h1 class="rainbow-text">AI Image Generator</h1>
+        <form method="POST">
+            <div class="input-group">
+                <input type="text" name="prompt" placeholder="Nhập ảnh mà bạn muốn tạo..." required>
+                <button type="submit">Tạo ảnh</button>
+            </div>
+        </form>
+
+        {% if image_url %}
+        <div class="image-container">
+            <h3>Tạo ảnh AI:</h3>
+            <img src="{{ image_url }}" alt="Generated Image">
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

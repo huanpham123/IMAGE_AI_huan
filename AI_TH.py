@@ -16,7 +16,7 @@ def index():
         
         try:
             # Giảm thời gian chờ xuống dưới 10 giây
-            response = requests.get(f"{api_url}?prompt={prompt}", timeout=5)  # Thay đổi timeout xuống 5 giây
+            response = requests.get(f"{api_url}?prompt={prompt}", timeout=100)  # Thay đổi timeout xuống 5 giây
             if response.status_code == 200:
                 data = response.json()
                 image_url = data.get("url")

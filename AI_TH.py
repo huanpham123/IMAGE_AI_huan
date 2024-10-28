@@ -12,7 +12,7 @@ def index():
         
         try:
             # Thêm timeout là 10 giây
-            response = requests.get(api_url, timeout=100)
+            response = requests.get(api_url, timeout=10)
             if response.status_code == 200:
                 data = response.json()
                 image_url = data.get("url")
